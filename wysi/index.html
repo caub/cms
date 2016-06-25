@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Wysi - HTML Editor</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" crossorigin="anonymous" id="fontawesome">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.css"/>
+	<link rel="stylesheet" type="text/css" href="text.css" scoped=".page">
+	<link rel="stylesheet" type="text/css" href="style.css" scoped=".wysi">
+	<style>
+		body {margin: 0;}
+		.page {margin: 0 1em;}
+		h1 {text-align: center;}
+		.page > h1 > span {display: inline-block;}
+		* {box-sizing: border-box;}
+		
+		.row {display: flex}
+		.row > * {flex: 1}
+		.page > .row {margin: 1.5em .5em;flex-wrap:wrap;}
+		.row > aside {
+			flex:1 200px;
+			margin-top: 30px;
+		}
+		.row > main {flex:4 400px;}
+		figure img {width: 100%;}
+	</style>
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+
+
+
+<div id="wysi-app"></div>
+
+<div class="page">
+
+	<label style="border: 1px solid #aaa"><input checked type="checkbox" id="toggleedit">edit mode</label> some non editable text ...
+	<h1>
+		<span class="text xs" contenteditable="true"><em>Wysi - a small HTML Editor</em></span>
+	</h1> 
+	<div class="row">
+
+		<aside>
+
+			<div class="text" contenteditable="true">
+				 links:
+				 <ul>
+					<li><a href="http://i.imgur.com/1hYsxO0.webm" target="lightbox">Some cat</a></li>
+					<li><a href="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1" target="lightbox">Random video</a></li>
+					<li><a href="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d17631799.05894624!2d2.6101320984213774!3d37.059784935734285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sfr!4v1465478950181" target="lightbox">A map</a></li>
+				</ul>
+			</div>
+
+			<div class="text" contenteditable="true">
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Try to use <kbd>Ctrl</kbd><kbd>Z</kbd>/<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Z</kbd>/<kbd>Ctrl</kbd><kbd>Y</kbd> to undo <kbd onclick="document.execCommand('undo');event.stopPropagation()"><i class="fa fa-undo"></i></kbd>/redo <kbd onclick="document.execCommand('redo');event.stopPropagation()"><i class="fa fa-repeat"></i></kbd>, we removed those buttons to lighten the toolbar.
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Use <kbd>Shift</kbd><kbd>Enter</kbd> to insert a line return instead of a new block.
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Use <kbd>Shift</kbd><kbd>Delete</kbd> to delete links and images in suggest lists.
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Double-click on image/table resizers to reset their width, and on links or image to edit them.
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> You can scroll over the font-size dropdown (3rd toolbar button) on Chrome.
+				<p><i class="fa fa-chrome" style="color:green"> </i> <i class="fa fa-firefox" style="color:brown"> </i> <i class="fa fa-edge" style="color:blue"> </i>  Compatible
+			</div>
+
+		</aside>
+
+		<main>
+			<div class="text" contenteditable="true">
+				<h2>Hello World</h2>
+
+				<p><a href="//placekitten.com/1280/800?image=12#.jpg" target="lightbox" style="float:right"><img src="//placekitten.com/150/100?image=12#.jpg" style="float:right"></a> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+
+	<blockquote>1 + 1 = 2
+	— Someone</blockquote>
+
+				<div style="text-align: center;">
+					<img src="https://placehold.it/300x300#.jpg">
+				</div>
+				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+				<table>
+				<tr>
+					<td>111 1  111111</td>
+					<td>2222222222</td>
+					<td>111 1  111111</td>
+					<td>2222222222</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				<tr>
+					<td>33333333</td>
+					<td>44444444 44</td>
+					<td>33333333</td>
+					<td>44444444 44</td>
+				</tr>
+				</table>
+			</div>
+			
+		</main>
+		
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/xml/xml.min.js"></script>
+<script src="//crossorigin.me/http://feather.aviary.com/imaging/v3/editor.js"></script>
+
+<!-- <script src="/node_modules/react/dist/react.js"></script>
+<script src="/node_modules/react-dom/dist/react-dom.js"></script> -->
+<script src="https://fb.me/react-15.1.0.js"></script>
+<script src="https://fb.me/react-dom-15.1.0.js"></script>
+
+
+<!-- 1.  -->
+<!-- <script src="/node_modules/mini-requirejs/main.js"></script> -->
+<!-- or 2.  -->
+<script src="bundle.js"></script>
+<!-- or 3 -->
+<!-- <script src="/node_modules/micro-require/require.js"></script> -->
+
+<script>
+
+// require('../polyfills.js');
+// require.cache.react = {exports: React};
+
+// let wysi = require('src/App.js');
+
+let wapp = ReactDOM.render( React.createElement(wysi), document.getElementById('wysi-app') );
+
+toggleedit.addEventListener('change', e=>{
+	for (let el of document.querySelectorAll('[contenteditable]')){
+		el.contentEditable=e.target.checked;
+		wapp.setState({img:null, aR: null})
+	}
+});
+
+let tb = wapp.refs.tb;
+document.addEventListener('focus', function(e){
+	if (!e.target.isContentEditable ) return;//|| wapp.refs.el.contains(target)
+	tb.refs.el.classList.toggle('xs', e.target.matches('.xs'));
+	tb.show(e);
+}, true);
+
+// var sel = getSelection(), r=document.createRange();
+// r.setStartAfter(document.querySelector('[contenteditable]').firstChild);
+// sel.setRange(r);
+// wapp.setState({aR:r, imgEdit:true, imgForm:{}})
+
+
+/*
+var i = document.querySelector('.text i')
+var sel = getSelection()
+var r = sel.getRange()
+*/
+
+
+</script>
+
+<!-- <script src="https://rawgit.com/caub/b1994561abbf4a64a5c129577d89dfa0/raw/9945e500ce05b6f4e6b4d958ccfa91ae0d8b1a2a/scoped.js"></script>
+ -->
+
+</body>
+</html>
+

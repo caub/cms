@@ -1,0 +1,379 @@
+* {box-sizing: border-box;}
+
+body {
+	margin: 0;
+}
+
+.sel {
+	position: absolute;
+	/*background-color: rgba(255,255,255,.8);*/
+	left: -9999px;
+	border: 1px solid hsl(200,50%,65%);
+	z-index: 9;
+	pointer-events: none;
+	cursor: move;
+}
+.sel > div {
+	position: absolute;
+	opacity: .7;
+	pointer-events: auto;
+}
+.sel > div:nth-child(-n+2) {
+	left: -15px;
+	height: 15px;
+	background: hsla(200,50%,65%,.7);
+}
+.sel > :nth-child(1) {
+	top: -15px;
+	width: 30px;
+	border-radius: 15px 15px 0 0;
+}
+.sel > :nth-child(2) {
+	top: 0;
+	width: 15px;
+	border-radius: 0 0 0 15px;
+}
+.sel:hover > div:nth-child(-n+2) {
+	background: hsla(200,50%,65%,.9);
+}
+
+
+
+
+.caret {
+	border: 3px solid blue;
+	position: absolute;
+	left: -9999px;
+	pointer-events: none;
+	z-index: 30;
+}
+
+/* columns resize */
+.resizer {
+	position: absolute;
+	left: -9999px;
+	z-index: 9;
+	pointer-events: none;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.resizer > div {
+	position: absolute; 
+	top:0; bottom:0; 
+	pointer-events: auto;
+	border: 3px solid transparent;/*rgba(0,0,255,.2);*/
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	cursor: ew-resize;
+}
+.resizer > div:nth-child(1) {left: 0;}
+.resizer > div:nth-child(2) {right: 0;}
+.resizer > span {
+	font: bold condensed 3em Arial;
+	opacity: .7;
+	transition: all .5s linear;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+/* sidebar resize */
+.sbr {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	width: 6px;
+	cursor: col-resize;
+	/*background-color: #eee;*/
+	z-index: 9;
+	left: 160px;
+}
+
+
+/* sidebar */
+.sb {
+	position: fixed;
+	width: 160px;
+	top: 0;
+	bottom: 0;
+	background: #333;
+	color: #bbb;
+	z-index: 9;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sb::-webkit-scrollbar { width: 5px; }
+.sb::-webkit-scrollbar-track-piece { background: #f1f1f1; }
+.sb::-webkit-scrollbar-thumb { background: #bcbcbc; border: 1px solid #a8a8a8; }
+
+
+.sb .accordion > input {position: absolute; left: -999px;}
+
+.sb .accordion > ul > li > label {
+	white-space: nowrap;
+	display: block;
+	background: #444;
+	cursor: pointer;
+	display: flex;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+.sb .accordion > ul > li > label > :first-child {flex:1;}
+.sb .accordion > ul > li > label .fa {color: #bbb;}
+.sb .accordion > ul > li > label button {padding: 0 5px;}
+.sb .accordion > ul > li > label button[disabled] > .fa {color: #444; cursor: default;}
+.sb .accordion > ul > li > label button:not([disabled]):hover > .fa {color: #ccc;}
+
+.sb .accordion > ul >li > label:hover {
+	background: #555;
+}
+.sb .accordion > ul >li > label::before {
+	content: "▸";
+}
+.sb .accordion > ul {list-style-type: none; padding:0; margin: 0}
+.sb .accordion > ul > li > :last-child {max-height: 0; overflow-y: hidden; }
+
+.sb .accordion > input:nth-of-type(1):checked ~ ul > :nth-child(1) > :first-child::before,
+.sb .accordion > input:nth-of-type(2):checked ~ ul > :nth-child(2) > :first-child::before,
+.sb .accordion > input:nth-of-type(3):checked ~ ul > :nth-child(3) > :first-child::before,
+.sb .accordion > input:nth-of-type(4):checked ~ ul > :nth-child(4) > :first-child::before,
+.sb .accordion > input:nth-of-type(5):checked ~ ul > :nth-child(5) > :first-child::before
+{content: "▾";}
+
+.sb .accordion > input:nth-of-type(1):checked ~ ul > :nth-child(1) > :last-child,
+.sb .accordion > input:nth-of-type(2):checked ~ ul > :nth-child(2) > :last-child,
+.sb .accordion > input:nth-of-type(3):checked ~ ul > :nth-child(3) > :last-child,
+.sb .accordion > input:nth-of-type(4):checked ~ ul > :nth-child(4) > :last-child,
+.sb .accordion > input:nth-of-type(5):checked ~ ul > :nth-child(5) > :last-child
+{max-height: none;} 
+
+.sb .accordion > ul > li li {cursor: default;}
+.sb li.selected {font-weight: bold;}
+
+.sb button {
+	background: none;
+	border: none;
+	outline: none;
+	padding:0;
+}
+.sb button > i {cursor: pointer;}
+
+.sb .nav {padding-bottom:2px; margin: 4px 0 6px; border-bottom: 1px solid #888;}
+.sb .nav .fa {color: #bbb; font-size: 110%; margin: 3px;}
+.sb .nav button:not(.active) > .fa {color: #444;}
+.sb .nav button:not(.active):hover .fa {color: #888;}
+
+.sb .fa-trash-o {
+	font-size: 150%;
+}
+.sb .trash {
+	margin: 2px;
+	border: 2px dashed gray;
+	height: 2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.sb .trash > :nth-child(2) {
+	transform: scale(.5);
+}
+.sb .page.over {
+	border: 2px solid orange;
+}
+
+
+
+
+/* scratchpad  and new elements */
+.sb .scratchpad {
+	margin: 2px;
+	min-height: 30px;
+	border: 2px dashed gray;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.sb .scratchpad:empty::before {
+	content: 'scratchpad';
+	font-size: 80%;
+	opacity: .5;
+}
+
+
+.sb .thumb {
+/*	float: left;*/
+	width: 3em;
+	height: 3em;
+	overflow: hidden;
+	cursor: move;
+	position: relative;
+}
+.sb .thumb:hover {
+	background-color: hsla(280, 50%, 80%, .4);
+}
+
+.sb .thumb > .tabs {
+	transform: scale(.4);
+	transform-origin: top left;
+	width: 7em;
+	margin: .1em;
+}
+.sb .thumb > .tabs:not(.slide) > .labels > * {
+	max-width: 50px;
+}
+.sb .thumb > .tabs.slide {
+	max-height: 7em;
+}
+.sb .thumb > .accordion {
+	transform: scale(.4);
+	transform-origin: top left;
+	width: 7em;
+	margin: .3em .1em;
+}
+.sb .thumb > .text {
+	transform: scale(.4);
+	width: 7em;
+	transform-origin: top left;
+	text-align: justify;
+	margin: .15em;
+}
+.sb .thumb > .text > img:only-child {
+	width: 100%;
+}
+
+.sb .thumb > span.text {
+	display: inline-block;
+	transform: scale(.7);
+	width: 4em;
+}
+.sb .thumb > .text.link {
+	display: inline-block;
+	transform: scale(.7);
+	width: 4em;
+}
+
+.sb .thumb > .col, .sb .thumb > .row {
+	transform: scale(.4);
+	width: 7em;
+	transform-origin: top left;
+	flex-wrap: nowrap;
+	margin: .15em;
+}
+.sb .thumb > .row > *, .sb .thumb > .col > * {
+	margin: .2em;
+	flex-basis: 0;
+	outline: 1px solid #ccc;
+}
+
+
+.sb .thumb > hr {
+	margin: 50% 0;
+}
+
+
+
+
+/*  page tranforms */
+
+.page main {
+	padding: 4px;
+}
+
+.page .col:empty, .page .row:empty {
+	min-height: 2em;
+	border: 1px dashed #ccc;
+}
+
+
+.page {
+	position: relative;
+	margin-left: 168px;
+	/*transition: margin-left .2s cubic-bezier(.77,0,.175,1);*/
+}
+/* when dragging we add padding to separate elements */
+
+.noselection {
+	user-drag: none; 
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.page.drag .accordion, 
+.page.drag .tabs, 
+.page.drag .col,
+.page.drag .row,
+.page.drag .form,
+.page.drag .text,
+.page.drag .gallery {
+	/*transform: scale(.95);*/
+	/*padding: 4px;*/
+	outline: 1px dashed blue;
+}
+.page.drag .text {
+	margin: 6px;
+}
+.page.drag .accordion {padding: 2px;}
+.page.drag .tabs {padding:4px;}
+.page.drag .tabs.slide {padding-left:10px; padding-right: 10px;}
+.page.drag .tabs.slide > .labels > li > * {
+	opacity: .6;
+}
+
+.switch > input {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+}
+.switch > label {
+	width: 3em;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	backface-visibility: hidden;
+	transition: all 0.3s;
+  border-bottom: 1px solid transparent;
+}
+.switch > input:checked + label {border-bottom: 1px solid blue;}
+
+.style { list-style-type: none; padding:0; margin: 0}
+.style li {margin:8px 4px 0;}
+.style li > h4 {margin: 10px 1em 2px; text-transform: capitalize;}
+
+.style label {
+	display: flex;
+	position: relative;
+	height: 1.4em;
+	margin: 1px;
+}
+
+.style span {
+	white-space: nowrap;
+	line-height: 1.4em;
+	padding-right: 4px;
+}
+
+.style input {
+	flex: 1;
+	width:50px;
+	background-color: #eee;
+	border: none;
+}

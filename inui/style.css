@@ -1,0 +1,368 @@
+* {box-sizing: border-box;}
+
+:root {
+	--tabBackground: white;
+	--tabPadding: 0 2px;
+	--accordionColor: rgb(0,0,238);
+	--lineMargin: 2em;
+}
+
+
+.home nav {display: flex;}
+.home .logo { width: 40px; height: 30px;}
+.home nav .text {display: flex;align-items: center;}
+
+
+.col {display: flex; flex-direction: column;}/*test*/
+
+.row {display: flex; flex-wrap: wrap;}
+
+.row > *:not(hr) {flex:4; margin: 1em;}
+nav > .row > * {flex: initial;}
+
+hr {
+	margin: var(--lineMargin);
+}
+
+.row > :only-child {margin-left: auto; margin-right: auto;}
+
+footer {margin-top: 2em;}
+
+section {
+	height: 50vh;
+}
+@media screen and (max-height: 600px) {
+	section { height: 100vh; }
+}
+
+
+.tabs {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	min-width: 150px;
+}
+.tabs.slide {
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	align-self: center;
+}
+
+.tabs > input { 
+	position: absolute; 
+	opacity: 0;
+	height: 100%;
+	z-index: -1;
+}
+.tabs > ol {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.tabs.slide > .labels {z-index: 2;}
+.tabs.slide:not(.left) > .labels {order: 2;}
+
+.tabs.slide > .labels > li {
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.tabs.slide > .labels > li > div {
+	content: '';
+	height: 12px;
+	width: 12px;
+	display:inline-block;
+	border-radius: 50%;
+	background-color: rgba(0,0,200,.4);
+	vertical-align: top;
+	display: flex;
+	justify-content: center;
+	z-index: 1;
+}
+.tabs.slide > .labels > li > div > * {
+	opacity: 0;
+	width: auto;
+	position: absolute;
+	display: inline-block;
+	bottom: 75%;
+	font-size: 80%;
+	white-space: nowrap;
+	background-color: var(--tabBackground);
+	border-radius: 4px;
+}
+
+.tabs.slide.left > .labels > li > div > * {
+	left: 85%;
+	bottom: 15%;
+}
+
+.tabs.slide > .labels > li:hover > div {
+	background-color: rgba(0,0,200,.6);
+}
+.tabs.slide > .labels > li:hover > div > * {
+	opacity: .6;
+}
+
+
+
+
+.tabs.slide > .contents {
+	transition: transform .5s ease-in-out;
+	user-drag: none; 
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.tabs.slide.left { height: 100vh; }
+.tabs.slide.left > .contents {
+	flex-direction: column;
+}
+/*.tabs.slide:not(.left) > .contents {height: auto!important;width: auto!important;}*/
+
+.tabs.slide img {
+	user-drag: none; 
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	user-select: none;
+	-webkit-user-select: none;
+	/*-moz-user-select: none;*/
+	-ms-user-select: none;
+}
+
+
+.tabs.slide > :nth-child(1):checked ~ .contents { transform: translateX(0%); }
+.tabs.slide > :nth-child(2):checked ~ .contents { transform: translateX(-100%); }
+.tabs.slide > :nth-child(3):checked ~ .contents { transform: translateX(-200%); }
+.tabs.slide > :nth-child(4):checked ~ .contents { transform: translateX(-300%); }
+.tabs.slide > :nth-child(5):checked ~ .contents { transform: translateX(-400%); }
+.tabs.slide > :nth-child(6):checked ~ .contents { transform: translateX(-500%); }
+.tabs.slide > :nth-child(7):checked ~ .contents { transform: translateX(-600%); }
+.tabs.slide > :nth-child(8):checked ~ .contents { transform: translateX(-700%); }
+.tabs.slide > :nth-child(9):checked ~ .contents { transform: translateX(-800%); }
+.tabs.slide > :nth-child(10):checked ~ .contents { transform: translateX(-900%); }
+
+.tabs.slide.left > :nth-child(1):checked ~ .contents { transform: translateY(0%); }
+.tabs.slide.left > :nth-child(2):checked ~ .contents { transform: translateY(-100%); }
+.tabs.slide.left > :nth-child(3):checked ~ .contents { transform: translateY(-200%); }
+.tabs.slide.left > :nth-child(4):checked ~ .contents { transform: translateY(-300%); }
+.tabs.slide.left > :nth-child(5):checked ~ .contents { transform: translateY(-400%); }
+.tabs.slide.left > :nth-child(6):checked ~ .contents { transform: translateY(-500%); }
+.tabs.slide.left > :nth-child(7):checked ~ .contents { transform: translateY(-600%); }
+.tabs.slide.left > :nth-child(8):checked ~ .contents { transform: translateY(-700%); }
+.tabs.slide.left > :nth-child(9):checked ~ .contents { transform: translateY(-800%); }
+.tabs.slide.left > :nth-child(10):checked ~ .contents { transform: translateY(-900%); }
+
+
+.tabs.slide > :nth-child(1):checked ~ .labels > li:nth-child(1) > div,
+.tabs.slide > :nth-child(2):checked ~ .labels > li:nth-child(2) > div,
+.tabs.slide > :nth-child(3):checked ~ .labels > li:nth-child(3) > div,
+.tabs.slide > :nth-child(4):checked ~ .labels > li:nth-child(4) > div,
+.tabs.slide > :nth-child(5):checked ~ .labels > li:nth-child(5) > div,
+.tabs.slide > :nth-child(6):checked ~ .labels > li:nth-child(6) > div,
+.tabs.slide > :nth-child(7):checked ~ .labels > li:nth-child(7) > div,
+.tabs.slide > :nth-child(8):checked ~ .labels > li:nth-child(8) > div,
+.tabs.slide > :nth-child(9):checked ~ .labels > li:nth-child(9) > div,
+.tabs.slide > :nth-child(10):checked ~ .labels > li:nth-child(10) > div {
+	background-color: rgba(0,0,200,.8);
+}
+
+.tabs > .contents {
+	position: relative;
+	height: 100%;
+}
+
+.tabs > .contents > li {
+	min-width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	min-height: 100%;
+}
+.tabs > .contents > li > div { min-width: 0; height: 100%;}
+.tabs > .contents > li > div > :only-child {height: 100%;}
+.tabs.slide > .contents > li > div {text-align: center; }
+.tabs > .contents > li img {
+	max-width: 100%;
+	height: auto;
+}
+.tabs:not(.slide) > .contents > li {
+	opacity: 0;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	visibility: hidden;
+	transform: scale(0);
+	transform-origin: 50% 50%;
+	transition: all .1s;
+}
+
+.tabs:not(.slide) > .labels > li {
+	flex:1;
+	padding: var(--tabPadding);
+	max-width: 100px;
+	white-space: nowrap;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: var(--tabBackground);
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+.tabs:not(.slide) > .labels > li::after {
+	content:"";
+	position:absolute;
+	top:0;
+	right:0;
+	height:100%;
+	width:10px;
+	background: linear-gradient(90deg, transparent, var(--tabBackground));
+}
+
+.tabs:not(.slide) > :nth-child(1):checked ~ .labels > :nth-child(1),
+.tabs:not(.slide) > :nth-child(2):checked ~ .labels > :nth-child(2),
+.tabs:not(.slide) > :nth-child(3):checked ~ .labels > :nth-child(3),
+.tabs:not(.slide) > :nth-child(4):checked ~ .labels > :nth-child(4),
+.tabs:not(.slide) > :nth-child(5):checked ~ .labels > :nth-child(5),
+.tabs:not(.slide) > :nth-child(6):checked ~ .labels > :nth-child(6),
+.tabs:not(.slide) > :nth-child(7):checked ~ .labels > :nth-child(7),
+.tabs:not(.slide) > :nth-child(8):checked ~ .labels > :nth-child(8),
+.tabs:not(.slide) > :nth-child(9):checked ~ .labels > :nth-child(9),
+.tabs:not(.slide) > :nth-child(10):checked ~ .labels > :nth-child(10) {
+	border-bottom: 1px solid blue;
+}
+
+.tabs:not(.slide) > :nth-child(1):checked ~ .contents > :nth-child(1),
+.tabs:not(.slide) > :nth-child(2):checked ~ .contents > :nth-child(2),
+.tabs:not(.slide) > :nth-child(3):checked ~ .contents > :nth-child(3),
+.tabs:not(.slide) > :nth-child(4):checked ~ .contents > :nth-child(4),
+.tabs:not(.slide) > :nth-child(5):checked ~ .contents > :nth-child(5),
+.tabs:not(.slide) > :nth-child(6):checked ~ .contents > :nth-child(6),
+.tabs:not(.slide) > :nth-child(7):checked ~ .contents > :nth-child(7),
+.tabs:not(.slide) > :nth-child(8):checked ~ .contents > :nth-child(8),
+.tabs:not(.slide) > :nth-child(9):checked ~ .contents > :nth-child(9),
+.tabs:not(.slide) > :nth-child(10):checked ~ .contents > :nth-child(10) {
+	visibility: visible;
+	position: relative;
+	opacity: 1;
+	transform: scale(1);
+	transition: all .4s ease-in-out;
+}
+
+.tabs > :nth-child(1):checked ~ .contents > :nth-child(1),
+.tabs > :nth-child(2):checked ~ .contents > :nth-child(2),
+.tabs > :nth-child(3):checked ~ .contents > :nth-child(3),
+.tabs > :nth-child(4):checked ~ .contents > :nth-child(4),
+.tabs > :nth-child(5):checked ~ .contents > :nth-child(5),
+.tabs > :nth-child(6):checked ~ .contents > :nth-child(6),
+.tabs > :nth-child(7):checked ~ .contents > :nth-child(7),
+.tabs > :nth-child(8):checked ~ .contents > :nth-child(8),
+.tabs > :nth-child(9):checked ~ .contents > :nth-child(9),
+.tabs > :nth-child(10):checked ~ .contents > :nth-child(10) {
+	z-index: 1;
+}
+
+.tabs.left {flex-direction: row;}
+/*.tabs.left > .contents {flex: 1;}*/
+.tabs.left > .labels { flex-direction: column; }
+.tabs.left.slide > .contents > li {display: flex; align-items: center;}
+.tabs.left:not(.slide) > .labels > * {
+	/*transform: rotate(270deg);*/
+	transform-origin: 100% 100%;
+	width: 35px;
+	flex: none;
+	margin-right: 5px;
+	margin-bottom: 20px;
+	margin-left: 5px;
+	border-bottom: thin solid transparent;
+}
+
+.tabs > .labels > li> div > *, .accordion > li > :first-child > * {
+	display: inline-block;
+	width: 100%;
+}
+
+
+.accordion {
+	list-style: none;
+	padding: 0;
+}
+.accordion > li {
+	position: relative;
+}
+
+.accordion > li > :nth-last-child(2) {
+	display: block;
+	text-align: initial;
+	cursor: pointer;
+	margin: 0;
+	color: var(--accordionColor);
+}
+
+.accordion > li > :last-child {
+	overflow-y: hidden;
+	position:relative;
+	margin: 0;
+	transition: all .2s linear;
+}
+
+.accordion > li.selected > :nth-last-child(2) {
+	text-decoration: underline;
+}
+.accordion > li:not(.selected) > :last-child {
+	max-height:0;
+}
+
+
+
+.dropdown { position: relative; display: inline-block; white-space: nowrap; flex-basis: 0;}
+.dropdown > :first-child {
+	display: inline-block;
+	border: none;
+	border-bottom: 1px solid #aaa;
+	margin-bottom:.2em;
+	padding: 0;
+	min-width: 24px;
+	vertical-align: top;
+	background: none;
+	outline: none;
+	cursor: pointer;
+}
+.dropdown > :first-child::after {
+	content: "▾";
+	color: #555;
+	width: 10px;
+}
+.dropdown > :first-child:hover, .dropdown.active > :first-child {border-bottom: 1px solid blue;}
+.dropdown > :last-child > li:hover {background: #eee;}
+
+.dropdown > :last-child {	
+	list-style-type: none;
+	margin: 0;
+	padding:0;
+	transition: all 0.4s;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	background-color: white;
+	min-width: 100%;
+	z-index: 10;
+	opacity: 0;
+	position: absolute;
+	visibility: hidden;
+}
+
+.dropdown.active > :last-child {
+	visibility: visible;
+	opacity: 1;
+}
+
+.dropdown > :last-child > li { cursor: pointer; padding: 1px 4px;}
+.dropdown > :last-child > li > a { display: block; }
+
