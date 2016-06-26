@@ -119,7 +119,7 @@ let tabChange = (e,i,editMode) => {
 if (typeof module!=='undefined') {
 	module.exports = h => ({
 
-		tabs: ({id, name='_'+id||'__tb'+rand(), left, ref, index=0, style, slide, children=[], onDragOver, onMouseOver, onMouseEnter}) =>
+		tabs: ({id, name='_'+(id||rand()), left, ref, index=0, style, slide, children=[], onDragOver, onMouseOver, onMouseEnter}) =>
 			h('div', {className:`tabs ${slide?' slide':''}${left?' left':''}`, ref, style, onDragOver, onMouseOver, onMouseEnter},
 				children.map((_,i)=>h('input', {key:i, type:'radio', defaultChecked:i===index, name})),
 				h('ol', {className:'labels'}, children.map(({label},i)=>h('li', {key:'l'+i, onMouseDown:e=>tabChange(e,i,onDragOver)}, label))),

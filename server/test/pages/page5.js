@@ -26,7 +26,7 @@ module.exports = {
 				name: 'List', hor:true,
 				children: [{
 					name: 'Text',
-					html: '<p>Small test page for this CMS editor prototype, the little blue bubble showing on top left of components allows to move them, you can add new elements from the sidebar',
+					html: '<p>Test page for this CMS editor prototype, the little blue bubble showing on top left of components allows to move (drag/drop) them, you can add new eslements from the sidebar',
 					style:{}
 				}, {
 					name: 'List',
