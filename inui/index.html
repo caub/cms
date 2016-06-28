@@ -25,20 +25,10 @@
 <script src="/node_modules/mini-requirejs/main.js"></script>
  -->
 <script>
-Node.prototype.css = function(style) { Object.assign(this.style, style); return this; };
-Node.prototype.index = function(idx) {
-	return Array.prototype.indexOf.call(this.parentNode.children, this);
-};
-Node.prototype.add = function(...args) {
-	for (let a of args){
-		if (Array.isArray(a)) this.add(...a);
-		else if (a instanceof Node) this.appendChild(a);
-		else if (typeof a==='string') this.appendChild(document.createTextNode(a));
-	}
-	return this;
-};
+const flatten = (...children) => // flatten a list of children, and make text nodes when needed
+	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c));
 
-function h(tag, p, ...children){
+function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly DOM elements
 	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, null, p, ...children);
 	let el=document.createElement(tag);
 	if (p){
@@ -49,7 +39,8 @@ function h(tag, p, ...children){
 				el.addEventListener(name.substring(2).toLowerCase(), p[name], true); // or el[name.toLowerCase()] = p[name];
 		}
 	}
-	el.add(...children);
+	for (let c of flatten(...children))
+		el.appendChild(c)
 	return el;
 }
 
