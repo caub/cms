@@ -20,19 +20,23 @@ module.exports = {
 			name: 'Text',
 			html: '<img src="//pbs.twimg.com/profile_images/1856702047/logo_twitter_200x200.jpg">'
 		},
+		header: {
+			name: 'Text',
+			html: '<h1>Test page 5</h1>'
+		},
 		main: {
 			name: 'List',
 			children: [{
 				name: 'List', hor:true,
 				children: [{
 					name: 'Text',
-					html: '<p>Test page for this CMS editor prototype, the little blue bubble showing on top left of components allows to move (drag/drop) them, you can add new eslements from the sidebar',
+					html: '<p>The little blue bubble showing on top left of components allows to move (drag/drop) them, you can add new elements from the sidebar',
 					style:{}
 				}, {
 					name: 'List',
 					children: [{
 						name:'Text',
-						html:'Components are either Text (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), ..'
+						html:'Components are either Text (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), .. <br>You can resize components pointing your mouse on their sides, and double-clicking on resizers to reset the changes'
 					}, {
 						name: 'Text',
 						html: 'UI components based on this simple <a href="http://output.jsbin.com/tehuxog">lib</a>',

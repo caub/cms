@@ -1,12 +1,21 @@
 :root {
 	--textMargin: 1em;
+	--headerWidth: 400px;
 }
 
 body {
 	font-family: var(--textFontFamily);
 	font-size: var(--textFontSize);
 }
-
+nav {
+	background: var(--navBackground);
+}
+header {
+	width: var(--headerWidth);
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
 .text:not(.xs) { 
 	margin: var(--textMargin);
 }

@@ -38,7 +38,7 @@ module.exports={
 		"h6":"Heading 6"
 	},
 
-	"fontname": ["Times New Roman", "Arial", "Arial Black", "Calibri", "Georgia", "Cursive", "Impact", "Verdana", "Courier New"],
+	"fontname": ["Times New Roman", "Arial", "Arial Black", "Calibri", "Georgia", "Cursive", "Impact", "Verdana", "Consolas", "Courier New"],
 	"fontnameValue": {
 		"Arial":"Arial",
 		"sans-serif": "Arial",
@@ -50,6 +50,7 @@ module.exports={
 		"cursive": "Cursive",
 		"Impact": "Impact",
 		"Verdana": "Verdana",
+		"Consolas": "Consolas",
 		"Courier New": "Courier New"
 	},
 

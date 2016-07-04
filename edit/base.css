@@ -62,7 +62,7 @@ body {
 	position: absolute; 
 	top:0; bottom:0; 
 	pointer-events: auto;
-	border: 3px solid transparent;/*rgba(0,0,255,.2);*/
+	border: 3px solid transparent; /*rgba(0,0,255,.2);*/
 	user-select: none;
 	-moz-user-select: none;
 	-webkit-user-select: none;
@@ -294,7 +294,7 @@ body {
 
 .page {
 	position: relative;
-	margin-left: 168px;
+	margin-left: 160px;
 	/*transition: margin-left .2s cubic-bezier(.77,0,.175,1);*/
 }
 /* when dragging we add padding to separate elements */
@@ -321,7 +321,7 @@ body {
 	outline: 1px dashed blue;
 }
 .page.drag .text {
-	margin: 6px;
+	margin: 8px;
 }
 .page.drag .accordion {padding: 2px;}
 .page.drag .tabs {padding:4px;}
