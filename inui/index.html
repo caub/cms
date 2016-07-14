@@ -4,6 +4,7 @@
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<meta name="viewport" content="width=device-width">
+	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
 	<style>
 		main {margin: 1em;}
 		.dropdown {font-size: 1.2em;}
@@ -25,12 +26,10 @@
 <script src="/node_modules/mini-requirejs/main.js"></script>
  -->
 <script>
-const flatten = (...children) => // flatten a list of children, and make text nodes when needed
-	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c));
 
 function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly DOM elements
 	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, null, p, ...children);
-	let el=document.createElement(tag);
+	const el=document.createElement(tag);
 	if (p){
 		Object.assign(el, p);
 		if (p.style) Object.assign(el.style, p.style);
@@ -43,6 +42,8 @@ function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly
 		el.appendChild(c)
 	return el;
 }
+const flatten = (...children) => // flatten a list of children, and make text nodes when needed
+	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c));
 
 // or with React:
 // let h = (tag='div', p, ...children) =>
@@ -61,7 +62,7 @@ let {tabs, accordion, dropdown} = require('./index.js')(h);
 example.appendChild(
 
 	h('main',
-	dropdown({
+		dropdown({
 			label: h('h3', 'Minimal css/js UI library'),
 			content: h('ul', 
 				h('li', h('a', {href:'#accs'}, 'Accordions')),

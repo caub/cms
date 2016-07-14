@@ -92,11 +92,7 @@ let swipe = e => {
 			ol.style.transform=`translateY(${w}%)`;
 			return;
 		}
-		document.removeEventListener('mouseup', mouseUp);
-		document.removeEventListener('touchEnd', mouseUp);
-		document.removeEventListener('mousemove', move);
-		document.removeEventListener('touchmove', move);
-		Object.assign(ol.style, {transform:'', transition:''});
+		mouseUp();
 		let delta = e.movementX?sign(left?e.movementY:e.movementX):left?sign(clientY-Y):sign(clientX-X);
 		ol.parentNode.children[(index-delta+n)%n].checked = true;
 		ol.dispatchEvent(new CustomEvent('swipe', {bubbles: true, details:delta}));
