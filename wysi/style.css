@@ -36,7 +36,7 @@ input.error {outline: 1px solid red}
 	transform-origin: 0 100%;
 	/*left: -999px;*/
 	background: #eee;
-	z-index: 11;
+	z-index: 12;
 	white-space: nowrap;
 	user-select: none;
 	-moz-user-select: none;

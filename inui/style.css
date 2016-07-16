@@ -186,8 +186,8 @@ section {
 	max-height: 100%;
 	min-height: 100%;
 }
-.tabs > .contents > li > div { min-width: 0; height: 100%;}
-.tabs > .contents > li > div > :only-child {height: 100%;}
+.tabs > .contents > li > div { min-width: 0;}
+
 .tabs.slide > .contents > li > div {text-align: center; }
 .tabs > .contents > li img {
 	max-width: 100%;

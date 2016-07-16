@@ -110,7 +110,7 @@ body {
 .sb::-webkit-scrollbar-track-piece { background: #f1f1f1; }
 .sb::-webkit-scrollbar-thumb { background: #bcbcbc; border: 1px solid #a8a8a8; }
 
-.sb * {overflow-x: hidden;}
+.sb * {overflow: hidden;}
 .sb .accordion > input {position: absolute; left: -999px;}
 
 .sb .accordion > ul > li > label {
