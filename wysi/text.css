@@ -3,7 +3,7 @@
 	--headerWidth: 400px;
 }
 
-body {
+.text {
 	font-family: var(--textFontFamily);
 	font-size: var(--textFontSize);
 }
