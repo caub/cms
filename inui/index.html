@@ -31,12 +31,12 @@ function h(tag, p={}, ...children){ // 'hyperscript' util function, to make quic
 	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, undefined, p, ...children);
 	const el=document.createElement(tag);
 	for (let name in p){
-		if (name.startsWith('on')) el[name.toLowerCase()] = p[name];
-		else el.setAttribute(name, p[name])
+		if (name.includes('-')) el.setAttribute(name, p[name])
+		else if (name.startsWith('on')) el[name.toLowerCase()] = p[name];
+		else el[name] = p[name];
 	}
-	if (p.className) el.className=p.className;
 	if (p.style) Object.assign(el.style, p.style);
-	if (p.data) for (let i in p.data) el.dataset[i]=p.data[i];
+	// if (p.data) for (let i in p.data) el.dataset[i]=p.data[i];
 	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c))// flatten a list of children, and make text nodes when needed
 	.forEach(c=>el.appendChild(c)) // and append them to el
 	return el;
