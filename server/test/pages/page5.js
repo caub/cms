@@ -4,6 +4,7 @@ module.exports = {
 	title:'..',
 	layout: 'Home',
 	styles: ['/inui/style.css', '/wysi/text.css'],
+	favicon: 'data:;base64,iVBORw0KGgo=',
 	scripts: ['/inui/index.js'],
 	regions: {
 		nav: {
@@ -37,7 +38,7 @@ module.exports = {
 					style: {flex: 7},
 					children: [{
 						name:'Text',
-						html:'<strong>Components</strong> are <em>either<em> <del>Text</del> (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), .. <br>You can resize components pointing your mouse on their sides, and double-clicking on resizers to reset the changes'
+						html:'<strong>Components</strong> are <em>either</em> <del>Text</del> (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), .. <br>You can resize components pointing your mouse on their sides, and double-clicking on resizers to reset the changes'
 					}, {
 						name: 'Text',
 						html: 'UI components based on this simple <a href="../inui">lib</a>',
