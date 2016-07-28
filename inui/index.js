@@ -1,58 +1,61 @@
 
-let {floor, random, min, max, abs, sign, round} = Math, rand = _=>floor(1296*random()).toString(36);
-let swipeThreshold = 5;
-let server = typeof window==='undefined';
+const {floor, random, min, max, abs, sign, round} = Math, rand = _=>floor(1296*random()).toString(36);
+const swipeThreshold = 5;
+const server = typeof window==='undefined';
 
 
-// dropdown handler
-let dropdownToggle = ({currentTarget})=>{
-
-	let closeOnOut = e => {
-		if (!currentTarget.contains(e.target)){
+// dropdown handler generator, dropdown toggle on their firstChild click, close on click out or ESC key, and close on click in lastChild and matches closeOn
+const openDropdown = (closeOn='a') => ({currentTarget})=>{// currentTarget is the dropdown button (first child)
+	const closeOnOut = e => { // mousedown outside of the dropdown
+		if (!currentTarget.parentNode.contains(e.target)){
 			toggle(false);
 		}
-	}, closeOnEscape = e => {
+	}, closeOnUp = e => { // mouseup on an element that matches closeOn
+		if (e.target.matches(closeOn)){
+			toggle(false);
+		}
+	}, closeOnEscape = e => { // press e.key=='ESC'
 		if (e.keyCode===27){
 			toggle(false);
 		}
-	}, toggle = (b=!currentTarget.classList.contains('active')) => {
+	}, toggle = (b=!currentTarget.classList.contains('selected')) => {
 		if (b){
 			document.addEventListener('mousedown', closeOnOut);
 			document.addEventListener('keydown', closeOnEscape);
+			if (closeOn) currentTarget.nextElementSibling.addEventListener('mouseup', closeOnUp);
 		} else {
 			document.removeEventListener('mousedown', closeOnOut);
 			document.removeEventListener('keydown', closeOnEscape);
+			if (closeOn) currentTarget.nextElementSibling.removeEventListener('mouseup', closeOnUp);
 		}
-		currentTarget.classList.toggle('active', b);
+		currentTarget.classList.toggle('selected', b);
 	};
-
 	toggle();
 };
 
 
-
 // for accordion
-let openTab = li => {
+const openTab = li => {
 	li.classList.add('selected');
 	li.lastChild.style.maxHeight = ''; // quickly release max-height to measure the height
-	let height = li.lastChild.offsetHeight;
+	const height = li.lastChild.offsetHeight;
 	li.lastChild.style.maxHeight = 0;
 	setTimeout(_=>{
 		li.lastChild.style.maxHeight = height+'px';
 	},10);
 };
 
-let closeTab = li => {
+const closeTab = li => {
 	li.lastChild.style.maxHeight = li.lastChild.offsetHeight+'px';
 	setTimeout(_=>{
 		li.classList.remove('selected');
 		li.lastChild.style.maxHeight = '';
 	},10);
 };
-let transitionEnd = e=>{
+const transitionEnd = e=>{
 	e.currentTarget.lastChild.style.maxHeight = '';
 };
-let change = (e, collapse, editMode) => {
+const change = (e, collapse, editMode) => {
 	if (!e.currentTarget.classList.contains('selected')) {
 		openTab(e.currentTarget);
 
@@ -67,33 +70,33 @@ let change = (e, collapse, editMode) => {
 };
 
 // for tabs
-let swipe = e => {
-	let {clientX:X,clientY:Y}=e.touches?e.touches[0]:e, ol = e.currentTarget, n=ol.childElementCount, chk=ol.parentNode.querySelector('input:checked');
-	if (!chk) console.log('no radio checked')
-	let index = chk?Array.prototype.indexOf.call(chk.parentNode.children, chk):0;
-	let left = ol.matches('.left > *');
+const swipe = e => {
+	const {clientX:X,clientY:Y}=e.touches?e.touches[0]:e, ol = e.currentTarget, n=ol.childElementCount, chk=ol.parentNode.querySelector('input:checked');
+	// if (!chk) console.log('no radio checked')
+	const index = chk?Array.prototype.indexOf.call(chk.parentNode.children, chk):0;
+	const left = ol.matches('.left > *');
 	ol.style.transition = 'none';
-	let mouseUp = _ => {
+	const mouseUp = _ => {
 		document.removeEventListener('mouseup', mouseUp);
 		document.removeEventListener('touchEnd', mouseUp);
 		document.removeEventListener('mousemove', move);
 		document.removeEventListener('touchmove', move);
 		Object.assign(ol.style,{transform:'', transition:''});// ol.removeAttribute('style');
 	};
-	let move = e => {
-		let {clientX,clientY}=e.touches?e.touches[0]:e;
+	const move = e => {
+		const {clientX,clientY}=e.touches?e.touches[0]:e;
 		if (abs(e.movementX)<swipeThreshold && !left) {
-			let w = ((clientX-X)/ol.offsetWidth-index)*100;
+			const w = ((clientX-X)/ol.offsetWidth-index)*100;
 			ol.style.transform=`translateX(${w}%)`;
 			return;
 		}
 		if (abs(e.movementY)<swipeThreshold && left) {
-			let w = ((clientY-Y)/ol.offsetHeight-index)*100;
+			const w = ((clientY-Y)/ol.offsetHeight-index)*100;
 			ol.style.transform=`translateY(${w}%)`;
 			return;
 		}
 		mouseUp();
-		let delta = e.movementX?sign(left?e.movementY:e.movementX):left?sign(clientY-Y):sign(clientX-X);
+		const delta = e.movementX?sign(left?e.movementY:e.movementX):left?sign(clientY-Y):sign(clientX-X);
 		ol.parentNode.children[(index-delta+n)%n].checked = true;
 		ol.dispatchEvent(new CustomEvent('swipe', {bubbles: true, details:delta}));
 	};
@@ -104,8 +107,8 @@ let swipe = e => {
 };
 
 
-let tabChange = (e,i,editMode) => {
-	let tab = e.currentTarget.parentNode.parentNode.children[i];
+const tabChange = (e,i,editMode) => {
+	const tab = e.currentTarget.parentNode.parentNode.children[i];
 	tab.checked = true;
 	if (!editMode) setTimeout(_=>tab.focus());
 	
@@ -131,17 +134,16 @@ if (typeof module!=='undefined') {
 				))
 			),
 
-		dropdown: ({className='', label, ref, style, content, closeOn='a', onMouseDown=dropdownToggle, onDragOver, onMouseOver, onMouseEnter}) => 
-			h('div', {className:'dropdown '+className, ref, style, onMouseDown, onClick:e=>e.target.matches(closeOn)&&onMouseDown({currentTarget:e.currentTarget.firstChild}), 'data-close-on':server&&closeOn, onDragOver, onMouseOver, onMouseEnter},
-				label,
+		dropdown: ({className='', label, ref, style, content, closeOn='a', onDragOver, onMouseOver, onMouseEnter}) => 
+			h('div', {className:'dropdown '+className, ref, style, onDragOver, onMouseOver, onMouseEnter},
+				h('button', {onMouseDown:!className.includes('hover')&&openDropdown(closeOn), 'data-close-on':server&&closeOn}, label),
 				content
 			)
 	});
 
 } else {
-
 	for (let el of document.querySelectorAll('.tabs')){
-		let labels = el.querySelectorAll('.labels > li');
+		const labels = el.querySelectorAll('.labels > li');
 		for (let i=0; i<labels.length; i++)
 			labels[i].addEventListener('mousedown',e=>tabChange(e,i))
 		if (el.classList.contains('slide')){
@@ -153,14 +155,13 @@ if (typeof module!=='undefined') {
 		for (let li of el.children)
 			li.addEventListener('click', e=>change(e, el.dataset.collapse))
 	}
-	for (let el of document.querySelectorAll('.dropdown')){
-		el.addEventListener('click', e=>e.target.matches(e.currentTarget.dataset.closeOn)&&onMouseDown({currentTarget:e.currentTarget.firstChild}))
-		el.firstChild.addEventListener('mousedown', onMouseDown)
+	for (let el of document.querySelectorAll('.dropdown:not(.hover) > :first-child')){
+		el.addEventListener('mousedown', openDropdown(el.dataset.closeOn))
 	}
 }
 
 // for generating css rules
-// let length = 10;
+// const length = 10;
 
 // `
 // /*generated*/

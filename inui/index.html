@@ -8,6 +8,7 @@
 	<style>
 		main {margin: 1em;}
 		.dropdown {font-size: 1.2em;}
+		h2 {font-weight: 500;}
 	</style>
 </head>
 <body>
@@ -17,8 +18,8 @@
 
 <footer>.</footer>
 
-<!-- <script src="https://fb.me/react-15.0.2.js"></script>
-<script src="https://fb.me/react-dom-15.0.2.js"></script> -->
+<!-- <script src="https://fb.me/react-15.2.1.js"></script>
+<script src="https://fb.me/react-dom-15.2.1.js"></script> -->
 <script src="https://rawgit.com/caub/cf82c451120373dc1568/raw/85aaf781f52fe3e28d1a18bfa73ccd6ffd2635a5/main.js"></script>
 
 <!-- <script src="/node_modules/react/dist/react.js"></script>
@@ -26,24 +27,21 @@
 <script src="/node_modules/mini-requirejs/main.js"></script>
  -->
 <script>
-
-function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly DOM elements
-	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, null, p, ...children);
+function h(tag, p={}, ...children){ // 'hyperscript' util function, to make quickly DOM elements
+	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, undefined, p, ...children);
 	const el=document.createElement(tag);
-	if (p){
-		Object.assign(el, p);
-		if (p.style) Object.assign(el.style, p.style);
-		for (let name in p){
-			if (name.startsWith('on') && p[name])
-				el.addEventListener(name.substring(2).toLowerCase(), p[name], true); // or el[name.toLowerCase()] = p[name];
-		}
+	for (let name in p){
+		if (name.startsWith('on')) el[name.toLowerCase()] = p[name];
+		else el.setAttribute(name, p[name])
 	}
-	for (let c of flatten(...children))
-		el.appendChild(c)
+	if (p.className) el.className=p.className;
+	if (p.style) Object.assign(el.style, p.style);
+	if (p.data) for (let i in p.data) el.dataset[i]=p.data[i];
+	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c))// flatten a list of children, and make text nodes when needed
+	.forEach(c=>el.appendChild(c)) // and append them to el
 	return el;
 }
-const flatten = (...children) => // flatten a list of children, and make text nodes when needed
-	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c));
+
 
 // or with React:
 // let h = (tag='div', p, ...children) =>
@@ -62,92 +60,114 @@ let {tabs, accordion, dropdown} = require('./index.js')(h);
 example.appendChild(
 
 	h('main',
-		dropdown({
-			label: h('h3', 'Minimal css/js UI library'),
-			content: h('ul', 
-				h('li', h('a', {href:'#accs'}, 'Accordions')),
-				h('li', h('a', {href:'#tabs'}, 'Tabs and sliders')),
-				h('li', h('a', {href:'http://google.com', target:'_blank'}, 'Google ↗')),
-				h('li', h('a', {href:'../'}, 'Home'))
-			)
-		}),
+		h('h1', 'Minimal css/js UI library'),
 
-		h('h3', {id:'accs'}, 'Some classic accordions'),
-		h('div', {className:'row'},
-			
-			accordion({
-				//style: {width: 450},
-				// collapse: true,
-				children: [{
-					label: h('h3', 'tab 1'),
-					content: h('p', h('img', {src:`//placekitten.com/200/120?image=1`}))
-				}, {
-					label: h('h3', 'tab 222222222'),
-					content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.`)
-				}, {
-					label: h('h3', 'tab 3.'),
-					content: h('p', `foo bar`)
-				}]
+		h('section',
+
+			h('h2', {id:'dropdown'}, 'Basic dropdowns'),
+
+			dropdown({
+				className:'hover',
+				label: h('span', {title:'hover'}, 'Components'),
+				content: h('ul', 
+					h('li', h('a', {href:'#dropdown'}, 'Dropdown')),
+					h('li', h('a', {href:'#accordion'}, 'Accordions')),
+					h('li', h('a', {href:'#tabs'}, 'Tabs and sliders'))
+				)
 			}),
-			
-			accordion({
-				//style: {width: 450},
-				collapse: true,
-				index: 1,
-				children: [{
-					label: h('h3', 'tab 1'),
-					content: h('p', h('img', {src:`//placekitten.com/200/120?image=1`}))
-				}, {
-					label: h('h3', 'tab 222222222'),
-					content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.`)
-				}, {
-					label: h('h3', 'tab 3.'),
-					content: h('p', `foo bar`)
-				}]
-			})
 
+			h('span', {style:{display:'inline-block', width:'3em'}}),
+
+			dropdown({
+				label: h('span', {title:'click'}, 'Test'),
+				content: h('ul', 
+					h('li', h('span', `shoudn't close`)),
+					h('li', h('a', {href:'http://google.com', target:'_blank'}, 'Google ↗')),
+					h('li', h('a', {href:'https://en.wikipedia.org/wiki/Foobar', target:'_blank'}, 'Foobar ↗')),
+					h('li', h('a', {href:'../'}, 'Home'))
+				)
+			})
 		),
 
+		h('section',
 
-		
-		h('h3', {id:'tabs'}, 'Various tabs'),
-		h('div', {className:'row'},
-			
-			tabs({
-				children: [{
-					label: h('span', `tab 1`),
-					content: h('img', {src:`//placekitten.com/200/120?image=1`})
-				}, {
-					label: h('span', `tab 222222222`),
-					content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.`)
-				}, {
-					label: h('span', `tab 3.`),
-					content: h('p', `foo bar
-							...
-						`, h('label', h('input', {type:'checkbox', onChange:e=>e.target.closest('.tabs').classList.toggle('left')}), 'labels on the left'))
-				}]
-			}),
-
-			tabs({
-				style: {maxWidth:'450px'},
-				slide:true,
-				children: Array.from({length:9}, (_,i)=>({
-					label: h('div', h('span', `tab ${i+1}`)),
-					content: h('div', 
-						h('div', {contentEditable:false},
-							h('img', {src:`//placekitten.com/600/450?image=${i+1}`})
-						)
-					)
-				})).concat({
-					label: h('div', h('span', `tab 10`)),
-					content: h('div', h('div', `foo bar
-							...
-						`, h('label', h('input', {type:'checkbox', defaultChecked:true, onChange:e=>e.target.closest('.tabs').classList.toggle('left')}), 'labels on the left')))
+			h('h2', {id:'accordion'}, 'Some classic accordions'),
+			h('div', {className:'row'},
+				
+				accordion({
+					//style: {width: 450},
+					// collapse: true,
+					children: [{
+						label: h('h3', 'tab 1'),
+						content: h('p', h('img', {src:`//placekitten.com/200/120?image=1`}))
+					}, {
+						label: h('h3', 'tab 222222222'),
+						content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.`)
+					}, {
+						label: h('h3', 'tab 3.'),
+						content: h('p', `foo bar`)
+					}]
+				}),
+				
+				accordion({
+					//style: {width: 450},
+					collapse: true,
+					index: 1,
+					children: [{
+						label: h('h3', 'tab 1'),
+						content: h('p', h('img', {src:`//placekitten.com/200/120?image=1`}))
+					}, {
+						label: h('h3', 'tab 222222222'),
+						content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.`)
+					}, {
+						label: h('h3', 'tab 3.'),
+						content: h('p', `foo bar`)
+					}]
 				})
-			})
+
+			)
 		),
 
-		tabs({
+		h('section',
+
+			h('h2', {id:'tabs'}, 'Various tabs'),
+			h('div', {className:'row'},
+				
+				tabs({
+					children: [{
+						label: h('span', `tab 1`),
+						content: h('img', {src:`//placekitten.com/200/120?image=1`})
+					}, {
+						label: h('span', `tab 222222222`),
+						content: h('p', `At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.`)
+					}, {
+						label: h('span', `tab 3.`),
+						content: h('p', `foo bar
+								...
+							`, h('label', h('input', {type:'checkbox', onChange:e=>e.target.closest('.tabs').classList.toggle('left')}), 'labels on the left'))
+					}]
+				}),
+
+				tabs({
+					style: {maxWidth:'450px'},
+					slide:true,
+					children: Array.from({length:9}, (_,i)=>({
+						label: h('div', h('span', `tab ${i+1}`)),
+						content: h('div', 
+							h('div', {contentEditable:false},
+								h('img', {src:`//placekitten.com/600/450?image=${i+1}`})
+							)
+						)
+					})).concat({
+						label: h('div', h('span', `tab 10`)),
+						content: h('div', h('div', `foo bar
+								...
+							`, h('label', h('input', {type:'checkbox', defaultChecked:true, onChange:e=>e.target.closest('.tabs').classList.toggle('left')}), 'labels on the left')))
+					})
+				})
+			),
+
+			tabs({
 				// style: {height:'450px'},
 				slide:true, left: true,
 				children: Array.from({length:9}, (_,i)=>({
@@ -164,6 +184,7 @@ example.appendChild(
 						`, h('label', h('input', {type:'checkbox', defaultChecked:true, onChange:e=>e.target.closest('.tabs').classList.toggle('left')}), 'labels on the left')))
 				})
 			})
+		)
 	)
 );
 

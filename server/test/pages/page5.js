@@ -34,12 +34,17 @@ module.exports = {
 					style:{}
 				}, {
 					name: 'List',
+					style: {flex: 7},
 					children: [{
 						name:'Text',
-						html:'Components are either Text (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), .. <br>You can resize components pointing your mouse on their sides, and double-clicking on resizers to reset the changes'
+						html:'<strong>Components</strong> are <em>either<em> <del>Text</del> (html content, image, ...), List (row or column), Tabs (accordions, tabs, slides), Tab (their items), Line, Section (todo), .. <br>You can resize components pointing your mouse on their sides, and double-clicking on resizers to reset the changes'
 					}, {
 						name: 'Text',
-						html: 'UI components based on this simple <a href="http://output.jsbin.com/tehuxog">lib</a>',
+						html: 'UI components based on this simple <a href="../inui">lib</a>',
+						style:{}
+					}, {
+						name: 'Text',
+						html: 'Wysiwyg based on <a href="../wysi">wysi</a>',
 						style:{}
 					}]
 				}]

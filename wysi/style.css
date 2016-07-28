@@ -491,6 +491,9 @@ input.error {outline: 1px solid red}
 	align-items: center;
 	margin: 4px 2px 0;
 }
+.link-edit label, .link-edit label *, .link-edit i {
+	cursor: pointer;
+}
 
 .image-picker {
 	column-count:6;

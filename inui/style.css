@@ -329,6 +329,7 @@ section {
 	border: none;
 	border-bottom: 1px solid #aaa;
 	margin-bottom:.2em;
+	margin-top: 0;
 	padding: 0;
 	min-width: 24px;
 	vertical-align: top;
@@ -341,7 +342,9 @@ section {
 	color: #555;
 	width: 10px;
 }
-.dropdown > :first-child:hover, .dropdown.active > :first-child {border-bottom: 1px solid blue;}
+.dropdown > :first-child:hover,
+.dropdown.hover:hover > :first-child,
+.dropdown > .selected {border-bottom: 1px solid blue;}
 .dropdown > :last-child > li:hover {background: #eee;}
 
 .dropdown > :last-child {	
@@ -349,7 +352,7 @@ section {
 	margin: 0;
 	padding:0;
 	transition: all 0.4s;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
 	background-color: white;
 	min-width: 100%;
 	z-index: 10;
@@ -358,7 +361,8 @@ section {
 	visibility: hidden;
 }
 
-.dropdown.active > :last-child {
+.dropdown > button.selected + *,
+.dropdown.hover:hover > :last-child {
 	visibility: visible;
 	opacity: 1;
 }

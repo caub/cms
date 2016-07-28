@@ -321,7 +321,7 @@ body {
 	outline: 1px dashed blue;
 }
 .page.drag .text {
-	margin: 8px;
+	/*margin: 8px;*/
 }
 .page.drag .accordion {padding: 2px;}
 .page.drag .tabs {padding:4px;}
