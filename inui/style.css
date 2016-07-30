@@ -337,6 +337,9 @@ section {
 	outline: none;
 	cursor: pointer;
 }
+.dropdown > :first-child * {
+	pointer-events: none;
+}
 .dropdown > :first-child::after {
 	content: "▾";
 	color: #555;

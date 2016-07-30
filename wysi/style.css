@@ -1,6 +1,6 @@
 /* code mirror positionned as an overlay above text*/
 
-.CodeMirror {
+body > .CodeMirror {
 	position:absolute!important;
 	top:0; left: -9999px;
 	z-index: 7;
@@ -69,7 +69,11 @@ input.error {outline: 1px solid red}
 
 .toolbar .dropdown > :last-child > li { padding: 4px;}
 
-.toolbar .selected, .dropdown > .selected, .dropdown > ul > .selected { background-color: #ccc;}
+.toolbar .selected, 
+.dropdown > .selected, 
+.dropdown.over > :first-child, 
+.dropdown.hover:hover > :first-child, 
+.dropdown > ul > .selected { background-color: #ccc;}
 .toolbar button:hover:not(.selected) {background-color: #ddd;}
 
 .toolbar fieldset[disabled] .fa-tint {color: rgba(0,0,0,.2)!important;}
@@ -170,6 +174,7 @@ input.error {outline: 1px solid red}
 	margin-top: 4px;
 }
 
+.dropdown > :first-child * {pointer-events: none; }
 
 .dropdown { position: relative; display: inline-block;}
 .dropdown > :last-child {	
@@ -182,13 +187,19 @@ input.error {outline: 1px solid red}
 	min-width: 100%;
 	z-index: 10;
 	opacity: 0;
+	transform: scaleY(0);
+	transform-origin: 0 0;
 	position: absolute;
 	visibility: hidden;
 	pointer-events: none;
 }
-.dropdown > button.selected + * {
+
+.dropdown > button.selected + *,
+.dropdown.over > :last-child,
+.dropdown.hover:hover > :last-child {
 	visibility: visible;
 	opacity: 1;
+	transform: scaleY(1);
 	pointer-events: auto;
 }
 .dropdown > :last-child > li { cursor: pointer; padding: 1px 4px; }
@@ -560,6 +571,7 @@ input.error {outline: 1px solid red}
 
 .scroll {overflow-y: auto; overflow-x: hidden;}
 .dropdown > .scroll {max-height: 100px;}
+.toolbar .dropdown > .scroll {max-height: 180px;}
 .modal > div > .scroll {max-height: 100vh;}
 
 .CodeMirror-vscrollbar::-webkit-scrollbar, 
