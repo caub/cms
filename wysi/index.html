@@ -73,7 +73,7 @@
 	— Someone</blockquote>
 
 				<div style="text-align: center;">
-					<img src="https://placehold.it/300x300#.jpg">
+					<img src="https://placehold.it/300x300#.jpg" style="filter: invert(100%)">
 				</div>
 				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -139,8 +139,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/xml/xml.min.js"></script>
 <script src="//crossorigin.me/http://feather.aviary.com/imaging/v3/editor.js"></script>
-<!-- 
-<script src="/node_modules/react/dist/react.js"></script>
+
+<!-- <script src="/node_modules/react/dist/react.js"></script>
 <script src="/node_modules/react-dom/dist/react-dom.js"></script> -->
 <script src="https://fb.me/react-15.2.1.js"></script>
 <script src="https://fb.me/react-dom-15.2.1.js"></script>
@@ -158,22 +158,20 @@
 // require('../polyfills.js');
 // require.cache.react = {exports: React};
 
-// let wysi = require('src/App.js');
+// let wysi = require('./src/App.js');
 
 let wapp = ReactDOM.render( React.createElement(wysi), document.getElementById('wysi-app') );
 
 toggleedit.addEventListener('change', e=>{
-	for (let el of document.querySelectorAll('[contenteditable]')){
+	for (let el of document.querySelectorAll('[contenteditable]'))
 		el.contentEditable=e.target.checked;
-		wapp.setState({img:null, aR: null})
-	}
+	wapp.setState({img:null, aR: null, ce:null, cm:false})
 });
 
 let tb = wapp.refs.tb;
 document.addEventListener('focus', function(e){
-	if (!e.target.isContentEditable ) return;//|| wapp.refs.el.contains(target)
-	tb.refs.el.classList.toggle('xs', e.target.matches('.xs'));
-	tb.show(e);
+	if (!e.target.isContentEditable ) return;
+	wapp.setState({ce: e.target, cm:false, xs:e.target.matches('.xs')})
 }, true);
 
 // var sel = getSelection(), r=document.createRange();
