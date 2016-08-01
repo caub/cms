@@ -337,9 +337,9 @@ section {
 	outline: none;
 	cursor: pointer;
 }
-.dropdown > :first-child * {
+/*.dropdown > :first-child * {
 	pointer-events: none;
-}
+}*/
 .dropdown > :first-child::after {
 	content: "▾";
 	color: #555;
@@ -360,6 +360,8 @@ section {
 	min-width: 100%;
 	z-index: 10;
 	opacity: 0;
+	transform: scaleY(0);
+	transform-origin: 0 0;
 	position: absolute;
 	visibility: hidden;
 }
@@ -368,6 +370,7 @@ section {
 .dropdown.hover:hover > :last-child {
 	visibility: visible;
 	opacity: 1;
+	transform: scaleY(1);
 }
 
 .dropdown > :last-child > li { cursor: pointer; padding: 1px 4px;}

@@ -22,6 +22,7 @@
 		}
 		.row > main {flex:4 400px;}
 		figure img {width: 100%;}
+		img[src*="placehold.it"] {filter: invert(100%);}
 	</style>
 	<meta name="viewport" content="width=device-width">
 	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -55,7 +56,7 @@
 			<div class="text" contenteditable="true">
 				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Try to use <kbd>Ctrl</kbd><kbd>Z</kbd>/<kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>Z</kbd>/<kbd>Ctrl</kbd><kbd>Y</kbd> to undo <kbd onclick="document.execCommand('undo');event.stopPropagation()"><i class="fa fa-undo"></i></kbd>/redo <kbd onclick="document.execCommand('redo');event.stopPropagation()"><i class="fa fa-repeat"></i></kbd>, we removed those buttons to lighten the toolbar.
 				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Use <kbd>Shift</kbd><kbd>Enter</kbd> to insert a line return instead of a new block.
-				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Use <kbd>Shift</kbd><kbd>Delete</kbd> to delete links and images in suggestion lists.
+				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Use <kbd>Shift</kbd><kbd>Delete</kbd> to delete links in suggestion lists (native browser feature).
 				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> Double-click on image/table resizers to reset their width, and on links or image to edit them.
 				<p><i class="fa fa-info-circle" style="color:gray;font-size: 1.2em"> </i> You can scroll over the font-size dropdown (3rd toolbar button) on Chrome.
 				<p><i class="fa fa-chrome" style="color:green"> </i> <i class="fa fa-firefox" style="color:brown"> </i> <i class="fa fa-edge" style="color:blue"> </i>  Compatible
@@ -73,7 +74,7 @@
 	— Someone</blockquote>
 
 				<div style="text-align: center;">
-					<img src="https://placehold.it/300x300#.jpg" style="filter: invert(100%)">
+					<img src="https://placehold.it/300x300#.jpg">
 				</div>
 				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
@@ -142,8 +143,8 @@
 
 <!-- <script src="/node_modules/react/dist/react.js"></script>
 <script src="/node_modules/react-dom/dist/react-dom.js"></script> -->
-<script src="https://fb.me/react-15.2.1.js"></script>
-<script src="https://fb.me/react-dom-15.2.1.js"></script>
+<script src="https://fb.me/react-15.3.0.js"></script>
+<script src="https://fb.me/react-dom-15.3.0.js"></script>
 
 
 <!-- 1.  -->

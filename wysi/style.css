@@ -71,7 +71,6 @@ input.error {outline: 1px solid red}
 
 .toolbar .selected, 
 .dropdown > .selected, 
-.dropdown.over > :first-child, 
 .dropdown.hover:hover > :first-child, 
 .dropdown > ul > .selected { background-color: #ccc;}
 .toolbar button:hover:not(.selected) {background-color: #ddd;}
@@ -87,11 +86,9 @@ input.error {outline: 1px solid red}
 /* .modal > * > .content > header, footer, .. */
 .modal {
 	position:fixed;
-	top:0;
-	left:0;
-	width: 100%;
-	height: 100%;
-	background:rgba(50,50,50,.5); 
+	top:0; left:0;
+	height: 100%; width: 100%;
+	background:rgba(50,50,50,.5);
 	z-index:15;
 	display: flex;
 	align-items:center;
@@ -99,6 +96,9 @@ input.error {outline: 1px solid red}
 	transition: all .3s ease-in-out;
 	/*transform: scale(1);*/
 	opacity: 1;
+}
+.modal input {
+	color: #333; 
 }
 .modal:not(.active)  {
 	visibility: hidden; 
@@ -108,33 +108,50 @@ input.error {outline: 1px solid red}
 }
 .modal > div {
 	position: relative;
-	background-color: #eee;
 	max-height: 100%;
 	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	pointer-events: none;
+}
+.modal > div > :last-child {flex:1;}
+.modal > div > :not(i) {
+	pointer-events: auto;
+	background-color: #eee;
 }
 
-.modal header { 
-	margin: 2px;
+.modal form {
 	display: flex;
 	align-items: center;
+	min-height: 1.7em;
+	width: calc(100% - 60px);
 }
 
-.modal > div > :not(:first-child) {
-	max-width: 100%;
-	max-height: 100%;
-	vertical-align: bottom;
+.modal form input {
+	flex:1;
+	margin: 2px;
+	font-size: 130%;
+	min-width: 100px;
+}
+.modal form > i {
+	cursor: pointer;
+	color: #333;
+	font-size: 130%;
+	margin: 0 5px;
 }
 
-@media (min-width: 600px) {
-	.modal > div > :not(:first-child) { max-width: 70vw; }
+
+@media (min-width: 800px) {
+	.modal > div > :not(i) { max-width: 70vw; }
 }
 
-.modal > div > i.fa-close {
+.modal > div > i {
 	position: absolute;
 	font-size: 1.5em;
-	right: -10px;
-	top: -13px;
-	color: white;
+	right: -3px;
+	top: -6px;
+	color: #333;
 	cursor: pointer;
 }
 .modal iframe {
@@ -164,7 +181,7 @@ input.error {outline: 1px solid red}
 
 .dropdown > :last-child > li:hover:not(.selected) {background: #ddd;}
 
-.dropdown.fontsize > :last-child > li {text-align: center; width: 30px;}
+.dropdown.fontsize > :last-child > li {text-align: center;}
 
 .dropdown.fontname > button > i {
 	text-overflow: clip;
@@ -184,7 +201,7 @@ input.error {outline: 1px solid red}
 	transition: all 0.15s;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 	background-color: #eee;
-	min-width: 100%;
+	min-width: 2em;
 	z-index: 10;
 	opacity: 0;
 	transform: scaleY(0);
@@ -195,8 +212,7 @@ input.error {outline: 1px solid red}
 }
 
 .dropdown > button.selected + *,
-.dropdown.over > :last-child,
-.dropdown.hover:hover > :last-child {
+.dropdown.hover:hover:not(.hide) > :last-child {
 	visibility: visible;
 	opacity: 1;
 	transform: scaleY(1);
@@ -363,7 +379,7 @@ input.error {outline: 1px solid red}
 	height: auto;
 	border: none;
 }
-    
+		
 .table-tools > :nth-child(3) > .dropdown > :last-child > :last-child {
 	background-color: #eee;
 }
@@ -507,11 +523,17 @@ input.error {outline: 1px solid red}
 }
 
 .image-picker {
-	column-count:6;
+	column-count:5;
 	column-gap: 2px;
-	-moz-column-count:6;
+	-moz-column-count:5;
 	-moz-column-gap: 2px;
 	text-align: center;
+}
+@media (max-width: 1200px) {
+	.image-picker {
+		column-count:4;
+		-moz-column-count:4;
+	}
 }
 @media (max-width: 800px) {
 	.image-picker {
@@ -519,49 +541,64 @@ input.error {outline: 1px solid red}
 		-moz-column-count:3;
 	}
 }
+
 .image-picker > figure { 
 	display: inline-block;
 	position: relative;
 	max-width: 100%;
 	min-width: 60px;
 	min-height: 60px;
-	margin: 2px;
+	padding: 2px;
+	margin: 0;
 }
 .image-picker > figure > div {
-	visibility: hidden;
 	position: absolute;
-	left:0; 
-	right:0;
-	top:0;
-	width: 100%;
+	left:0; right:0; top:0;
 	display:flex;
-	background-color: rgba(255,255,255,0.4);
-	z-index: 1;
 }
 
 .image-picker input {
 	flex: 1; 
 	overflow: hidden;
-	background-color: transparent;
+	text-align: center;
 	border: 0;
+	font-size: 1.6em;
+	background-color: rgba(255,255,255,0.4);
+	visibility: hidden;
+}
+.image-picker figure:hover input,
+.image-picker input:focus {
+	visibility: visible;
+}
+.image-picker input:focus ~ *,
+.image-picker i:hover {
+	visibility: visible;
+	opacity:1;
+	transition: all .2s;
 }
 
-.image-picker > figure:hover > div {visibility: visible}
-.image-picker > figure i.fa {cursor: pointer;}
+.image-picker input ~ * {
+  cursor: pointer;
+  position: absolute;
+  visibility: hidden;
+  opacity:0;
+}
+
+.image-picker i.fa {
+	cursor: pointer;
+	right: 0;
+}
+
+.image-picker i.fa-trash:hover {
+	color: red;
+	transition: all .2s;
+}
+.image-picker .fa-magic {top: 18px;font-size: 14px;}
 
 .image-picker > figure.selected > img {outline: 1px dashed gray;}
 .image-picker img {max-width: 100%; min-width: 60px; height: auto;}
 
-.image-picker i.fa-plus {
-	width: 100%;
-	height:100px;
-	font-size: 4em;
-	cursor: pointer;
-	display: flex;
-	align-items:center;
-	justify-content:center;
-}
-.image-picker .fa-magic {font-size: 14px;margin: 2px 2px 0 0;}
+
 
 @media (max-width: 350px) {
 	.modal header input[type=submit] { display: none; }
@@ -572,7 +609,6 @@ input.error {outline: 1px solid red}
 .scroll {overflow-y: auto; overflow-x: hidden;}
 .dropdown > .scroll {max-height: 100px;}
 .toolbar .dropdown > .scroll {max-height: 180px;}
-.modal > div > .scroll {max-height: 100vh;}
 
 .CodeMirror-vscrollbar::-webkit-scrollbar, 
 .scroll::-webkit-scrollbar { width: 5px; }
