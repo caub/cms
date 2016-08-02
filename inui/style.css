@@ -15,7 +15,7 @@
 
 .col {display: flex; flex-direction: column;}/*test*/
 
-.row {display: flex; flex-wrap: wrap;}
+.row {display: flex; flex-wrap: wrap; align-self: center;}
 
 .row > *:not(hr) {flex:4; margin: 1em;}
 nav > .row > * {flex: initial;}
