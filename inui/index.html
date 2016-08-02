@@ -27,17 +27,22 @@
 <script src="/node_modules/mini-requirejs/main.js"></script>
  -->
 <script>
-function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly DOM elements
+function h(tag, p, ...children){ // 'hyperscript' util function, to make quickly DOM elements, and behave like React.createElement
 	if (p instanceof Node||typeof p==='string'||Array.isArray(p)) return h(tag, undefined, p, ...children);
 	const el=document.createElement(tag);
 	if (p){
 		for (let name in p){ 
 			if (name.startsWith('on')) el[name.toLowerCase()] = p[name];
-			else el.setAttribute(name=='className'?'class':name=='htmlFor'?'for':name, p[name])
+			else if(p[name]!==false) el.setAttribute(
+				name=='className'?'class':
+				name=='htmlFor'?'for':
+				name=='defaultChecked'?'checked':
+				name, p[name]
+			)
 		}
 		if (p.style) Object.assign(el.style, p.style);
 	}
-	[].concat(...children.map(c=>typeof c==='string'?document.createTextNode(c):c))// flatten a list of children, and make text nodes when needed
+	[].concat(...children.map(c=>typeof c==='string'?new Text(c):c))// flatten a list of children, and make text nodes when needed
 	.forEach(c=>el.appendChild(c)) // and append them to el
 	return el;
 }
