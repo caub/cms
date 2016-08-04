@@ -348,7 +348,6 @@ section {
 .dropdown > :first-child:hover,
 .dropdown.hover:hover > :first-child,
 .dropdown > .selected {border-bottom: 1px solid blue;}
-.dropdown > :last-child > li:hover {background: #eee;}
 
 .dropdown > :last-child {	
 	list-style-type: none;
@@ -366,6 +365,7 @@ section {
 	visibility: hidden;
 }
 
+
 .dropdown > button.selected + *,
 .dropdown.hover:hover > :last-child {
 	visibility: visible;
@@ -373,6 +373,6 @@ section {
 	transform: scaleY(1);
 }
 
-.dropdown > :last-child > li { cursor: pointer; padding: 1px 4px;}
-.dropdown > :last-child > li > a { display: block; }
-
+.dropdown > :last-child > li { cursor: pointer; }
+.dropdown > :last-child > li > :only-child { display: block; padding: 1rem 1em; }
+.dropdown > :last-child > li:hover {background: #eee;}

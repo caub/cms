@@ -67,7 +67,9 @@ input.error {outline: 1px solid red}
 	opacity: .5;
 }
 
-.toolbar .dropdown > :last-child > li { padding: 4px;}
+/*.toolbar .dropdown > :last-child > li { padding: 4px;}*/
+.dropdown.hover > :last-child > li { display: block; padding: 6px 1.2em; }
+.dropdown.hover > :last-child > li i { pointer-events: none; }
 
 .toolbar .selected, 
 .dropdown > .selected, 
