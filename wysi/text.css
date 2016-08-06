@@ -38,9 +38,8 @@ header {
 	padding-left: 6px;
 	white-space: pre-wrap;
 }
-.text i.fa {
+.text .fa {
 	margin: 0 2px;
-	cursor: pointer;
 }
 .text img {
 	max-width: 100%;
