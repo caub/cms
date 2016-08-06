@@ -195,6 +195,9 @@ body > .lightbox > div > i.fa-close {
 	top: -13px;
 	color: white;
 	cursor: pointer;
+	z-index: 2;
+	opacity: 1;
+	transition: all .5s;
 }
 body > .lightbox iframe {
 	min-width: 400px;
