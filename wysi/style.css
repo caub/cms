@@ -621,11 +621,11 @@ input.error {outline: 1px solid red}
 .dropdown > .scroll {max-height: 100px;}
 .toolbar .dropdown > .scroll {max-height: 220px;}
 
-.CodeMirror-vscrollbar::-webkit-scrollbar, 
+body .CodeMirror-vscrollbar::-webkit-scrollbar, 
 .scroll::-webkit-scrollbar { width: 5px; }
 
-.CodeMirror-vscrollbar::-webkit-scrollbar-track-piece,
+body .CodeMirror-vscrollbar::-webkit-scrollbar-track-piece,
 .scroll::-webkit-scrollbar-track-piece { background: #f1f1f1; }
 
-.CodeMirror-vscrollbar::-webkit-scrollbar-thumb, 
+body .CodeMirror-vscrollbar::-webkit-scrollbar-thumb, 
 .scroll::-webkit-scrollbar-thumb { background: #bcbcbc; border: 1px solid #a8a8a8; }
