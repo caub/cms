@@ -329,6 +329,9 @@ body {
 .page.drag .tabs.slide > .labels > li > * {
 	opacity: .6;
 }
+.page.drag .col, .page.drag .row {
+	padding: 6px;
+}
 
 .switch > input {
 	position: absolute;
