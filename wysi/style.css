@@ -1,4 +1,10 @@
 /* code mirror positionned as an overlay above text*/
+:root {
+	--bg: rgba(240,240,255,.95);
+	--bg-hover: rgba(220,220,240,.95);
+	--bg-selected: rgba(200,200,225,.85);
+}
+
 
 body > .CodeMirror {
 	position:absolute!important;
@@ -10,8 +16,8 @@ body > .CodeMirror {
 
 button, input[type=button], input[type=submit], .dropdown > button {
 	display: inline-block;
-	border: 1px solid #aaa;
 	padding: 0;
+	border: none;
 	min-width: 22px;
 	height: 22px;
 	background: none;
@@ -23,7 +29,7 @@ button .fa {cursor: pointer;}
 
 form {margin:0}
 
-input[type=search] {height: 24px; min-width: 250px; border: 1px solid #aaa;}
+input[type=search] {height: 24px; min-width: 250px; border: 1px solid #ccc;}
 input[type=submit], input[type=submit] + button {height: 24px;}
 input.error {outline: 1px solid red}
 
@@ -33,7 +39,10 @@ input.error {outline: 1px solid red}
 	transform: translate(45%,-100px);
 	transform-origin: 0 100%;
 	/*left: -999px;*/
-	background: #eee;
+	border: 1px solid rgb(220,220,220);
+	background: var(--bg);
+	/*box-shadow: 0 0 8px 0 rgba(128,128,128,.2);*/
+	border-radius: 2px;
 	z-index: 12;
 	white-space: nowrap;
 	user-select: none;
@@ -45,7 +54,7 @@ input.error {outline: 1px solid red}
 	transition: transform 50ms linear;
 }
 
-.toolbar > button, .toolbar > fieldset > button, .toolbar .dropdown > button { width: 26px;height: 26px; }
+.toolbar > button, .toolbar > fieldset > button, .toolbar .dropdown > button { width: 28px;height: 28px; }
 .toolbar > button > i, .toolbar > fieldset > button > i, .toolbar .dropdown > button > i { font-size: 16px; }
 
 .dropdown > button > i { font-size: 13px; }
@@ -60,7 +69,7 @@ input.error {outline: 1px solid red}
 .toolbar > button, .dropdown > button, .toolbar > fieldset > *, .modal header form > * {
 	vertical-align: middle;
 }
-.toolbar > fieldset[disabled] + button {background-color: #ccc;}
+.toolbar > fieldset[disabled] + button {background-color: var(--bg-selected);}
 .toolbar > fieldset[disabled] {
 	opacity: .5;
 }
@@ -71,9 +80,10 @@ input.error {outline: 1px solid red}
 
 .toolbar .selected, 
 .dropdown > .selected, 
-.dropdown.hover:hover > :first-child, 
-.dropdown > ul > .selected { background-color: #ccc;}
-.toolbar button:hover:not(.selected) {background-color: #ddd;}
+.dropdown > ul > .selected { background-color: var(--bg-selected);}
+
+.toolbar button:hover:not(.selected),
+.dropdown.hover:hover > :first-child {background-color: var(--bg-hover);}
 
 .toolbar fieldset[disabled] .fa-tint {color: rgba(0,0,0,.2)!important;}
 
@@ -118,7 +128,7 @@ input.error {outline: 1px solid red}
 .modal > div > :last-child {flex:1;}
 .modal > div > :not(i) {
 	pointer-events: auto;
-	background-color: #eee;
+	background-color: var(--bg);
 }
 
 .modal form {
@@ -179,7 +189,7 @@ input.error {outline: 1px solid red}
 	width: 10px;
 }
 
-.dropdown > :last-child > li:hover:not(.selected) {background: #ddd;}
+.dropdown > :last-child > li:hover:not(.selected) {background: var(--bg-hover);}
 
 .dropdown.fontsize > :last-child > li {text-align: center;}
 
@@ -200,7 +210,8 @@ input.error {outline: 1px solid red}
 	padding:0;
 	transition: all 0.15s;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-	background-color: #eee;
+	border-radius: 2px;
+	background-color: var(--bg);
 	min-width: 2em;
 	z-index: 10;
 	opacity: 0;
@@ -259,7 +270,7 @@ input.error {outline: 1px solid red}
 .tabs > :nth-child(3):checked ~ .labels > :nth-child(3),
 .tabs > :nth-child(4):checked ~ .labels > :nth-child(4) {
 	border-bottom: 1px solid blue;
-	background-color: #ddd;
+	background-color: var(--bg-selected);
 } 
 
 .tabs > :nth-child(1):checked ~ .contents > :nth-child(1),
@@ -392,7 +403,7 @@ input.error {outline: 1px solid red}
 }
 		
 .table-tools > :nth-child(3) > .dropdown > :last-child > :last-child {
-	background-color: #eee;
+	background-color: var(--bg);
 }
 .table-tools > :nth-child(3) > .dropdown > :last-child > * {flex:1;}
 
@@ -421,11 +432,17 @@ input.error {outline: 1px solid red}
 	cursor: default;
 }
 .t-s-tabs > .labels {
-	background-color: #eee;
+	background-color: var(--bg);
 	width: 74px;
 }
 .t-s-tabs > .contents {box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-.t-s-tabs > .contents span {margin: 0 2px; display: inline-block; min-width: 60px;}
+.t-s-tabs > .contents span {
+	margin: 0 2px; 
+	display: inline-block; 
+	min-width: 60px;
+	font-size: 90%;
+	vertical-align: middle;
+}
 .t-s-tabs ul {list-style: none; padding-left: 0;}
 
 
@@ -509,7 +526,7 @@ input.error {outline: 1px solid red}
 	pointer-events: auto;
 }
 .link-edit > form > .row {
-	background-color: #eee;
+	background-color: var(--bg);
 	display: flex;
 	align-items: center;
 }
@@ -628,4 +645,4 @@ body .CodeMirror-vscrollbar::-webkit-scrollbar-track-piece,
 .scroll::-webkit-scrollbar-track-piece { background: #f1f1f1; }
 
 body .CodeMirror-vscrollbar::-webkit-scrollbar-thumb, 
-.scroll::-webkit-scrollbar-thumb { background: #bcbcbc; border: 1px solid #a8a8a8; }
+.scroll::-webkit-scrollbar-thumb { background: #ccd; }
