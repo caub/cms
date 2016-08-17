@@ -3,6 +3,7 @@
 	--bg: rgba(240,240,255,.95);
 	--bg-hover: rgba(220,220,240,.95);
 	--bg-selected: rgba(200,200,225,.85);
+	--border: 1px solid rgb(220,220,220);
 }
 
 
@@ -30,7 +31,7 @@ button .fa {cursor: pointer;}
 form {margin:0}
 
 input[type=search] {height: 24px; min-width: 250px; border: 1px solid #ccc;}
-input[type=submit], input[type=submit] + button {height: 24px;}
+input[type=submit], input[type=submit] + button {height: 24px; border: var(--border);}
 input.error {outline: 1px solid red}
 
 
@@ -39,7 +40,7 @@ input.error {outline: 1px solid red}
 	transform: translate(45%,-100px);
 	transform-origin: 0 100%;
 	/*left: -999px;*/
-	border: 1px solid rgb(220,220,220);
+	border: var(--border);
 	background: var(--bg);
 	/*box-shadow: 0 0 8px 0 rgba(128,128,128,.2);*/
 	border-radius: 2px;
@@ -618,9 +619,16 @@ input.error {outline: 1px solid red}
 }
 
 .image-picker i.fa-trash:hover {
-	color: red;
+	color: rgba(250,0,0,.8);
+}
+.image-picker i.fa-magic:hover {
+	color: rgba(0,0,250,.7);
+}
+.image-picker i.fa:hover {
 	transition: all .2s;
 }
+
+
 .image-picker .fa-magic {top: 18px;font-size: 14px;}
 
 .image-picker > figure.selected > img {outline: 1px dashed gray;}
