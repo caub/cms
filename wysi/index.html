@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Wysi - HTML Editor</title>
+	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" crossorigin="anonymous" id="fontawesome">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.css"/>
 	<link rel="stylesheet" type="text/css" href="text.css" scoped=".page">
@@ -24,7 +25,21 @@
 		figure img {width: 100%;}
 		img[src*="placehold.it"] {filter: invert(100%);}
 	</style>
-	<meta name="viewport" content="width=device-width">
+
+	<script>
+		function load(o){
+			var s = document.createElement('script');
+			Object.assign(s, {async: true}, o);
+			document.head.appendChild(s);
+		}
+		load({
+			src:'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.js',
+			onload:()=>load({src:'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/xml/xml.min.js'})
+		});
+		load({src:'//crossorigin.me/http://feather.aviary.com/imaging/v3/editor.js'})
+		//  
+	</script>
+
 </head>
 <body>
 
@@ -138,14 +153,10 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/mode/xml/xml.min.js"></script>
-<script src="//crossorigin.me/http://feather.aviary.com/imaging/v3/editor.js"></script>
-
 <!-- <script src="/node_modules/react/dist/react.js"></script>
 <script src="/node_modules/react-dom/dist/react-dom.js"></script> -->
-<script src="https://fb.me/react-15.3.0.js"></script>
-<script src="https://fb.me/react-dom-15.3.0.js"></script>
+<script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
+<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
 
 
 <!-- 1.  -->
