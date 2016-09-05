@@ -112,8 +112,9 @@ input.error {outline: 1px solid red}
 	color: #333; 
 }
 .modal:not(.active)  {
-	visibility: hidden; 
-	transition: all .2s ease-in-out;
+	visibility: hidden;
+	transition: opacity .2s ease-in-out;
+	pointer-events: none;
 	/*transform: scale(0);*/
 	opacity: 0;
 }
