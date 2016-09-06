@@ -59,7 +59,6 @@ header {
 	font-family:Arial,Helvetica,sans-serif;
 	background-color:#f7f7f7;
 	color:#333;
-	box-shadow:0 1px 0px rgba(0, 0, 0, 0.2),0 0 0 2px #ffffff inset;
 	border-radius:3px;
 	display:inline-block;
 	margin:0 0.1em;
@@ -112,24 +111,34 @@ header {
 }
 [contenteditable=true] td.selected { outline: 2px solid rgba(51,153,255,.9)!important; }
 
-[contenteditable=true] a:hover::after {
-	content: "\f08e";
+[contenteditable=true] a::after {
+	content: "";
 	font: normal normal normal .8em FontAwesome;
 	position: absolute;
 	cursor: pointer;
 	z-index: 11;
 	bottom: 6px;
 	text-decoration:none;
+	transition: all .3s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
 }
-[contenteditable=true] a[target=lightbox]:hover::after {
+[contenteditable=true] a:hover::after {
+	opacity: 1;
+	visibility: visible;
+	content: "\f08e";
+}
+[contenteditable=true] a[target=lightbox]::after {
 	content: "\f065";
 }
 
-[contenteditable=true] a:hover::before {
+
+[contenteditable=true] a::before {
 	content: attr(href);
+	transition: all .3s ease-in-out;
 	position: fixed;
 	white-space: nowrap;
-	padding-left: 4px;
+	padding: 1px 4px 3px;
 	bottom:-1px;
 	left:-1px;
 	min-width: 300px;
@@ -140,12 +149,18 @@ header {
 	font-size: 12px;
 	z-index: 10;
 	color: #666;
-	line-height: 22px;
 	background-color: hsl(0, 0%, 93%);
+	border: 1px solid hsl(0, 0%, 88%);
 	pointer-events: none;
 	border-top-right-radius: 4px;
 	display: inline-block;
 	text-align: left;
+	opacity: 0;
+	visibility: hidden;
+}
+[contenteditable=true] a:hover::before {
+	opacity: 1;
+	visibility: visible;
 }
 /*TODO a:hover > img not working on FF*/
 
