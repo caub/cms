@@ -3,6 +3,13 @@
 body {
 	margin: 0;
 }
+.app {
+	font-family: Arial;
+	font-size: 90%;
+}
+.page { 
+	font-family: 'Noto Sans'; 
+}
 
 .sel {
 	position: absolute;
@@ -123,7 +130,11 @@ body {
 	-moz-user-select: none;
 	-webkit-user-select: none;
 }
-.sb .accordion > ul > li > label > :first-child {flex:1;}
+.sb .accordion > ul > li > label > :first-child {
+	flex:1;
+	font-weight: bold;
+	letter-spacing: -0.75px;
+}
 .sb .accordion > ul > li > label .fa {color: #bbb;}
 .sb .accordion > ul > li > label button {padding: 0 5px;}
 .sb .accordion > ul > li > label button[disabled] > .fa {color: #444; cursor: default;}
@@ -170,6 +181,7 @@ body {
 
 .sb .fa-trash-o {
 	font-size: 150%;
+	margin: 0 4px;
 }
 .sb .trash {
 	margin: 2px;
@@ -357,7 +369,12 @@ body {
 }
 .switch > input:checked + label {border-bottom: 1px solid blue;}
 
-.style { list-style-type: none; padding:0; margin: 0}
+.style { 
+	list-style-type: none; 
+	padding:0; 
+	margin: 0;
+	font-size: 90%;
+}
 .style li {margin:8px 4px 0;}
 .style li > h4 {margin: 10px 1em 2px; text-transform: capitalize;}
 

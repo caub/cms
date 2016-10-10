@@ -5,12 +5,13 @@
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" crossorigin="anonymous" id="fontawesome">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.15.2/codemirror.min.css"/>
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="text.css" scoped=".page">
 	<link rel="stylesheet" type="text/css" href="style.css" scoped=".wysi">
 	<style>
-		body {margin: 0;}
-		.page {margin: 0 1em;}
+		body { margin: 0; }
 		h1 {text-align: center;}
+		.page { font-family: 'Noto Sans'; }
 		.page > h1 > span {display: inline-block;}
 		* {box-sizing: border-box;}
 		
@@ -24,16 +25,44 @@
 		.row > main {flex:4 400px;}
 		figure img {width: 100%;}
 		img[src*="placehold.it"] {filter: invert(100%);}
+
+		#toggleedit {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			outline: none;
+			cursor: pointer;
+			line-height: 0;
+			margin: 0 1em;
+			float: right;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 1px solid #ccc;
+			overflow: hidden;
+		}
+		#toggleedit:before {
+			opacity: 0;
+			color: white;
+			font-size: 25px;
+		}
+		#toggleedit:checked {
+			background-color: #0ab10a;
+		}
+		#toggleedit:checked::before {
+			opacity: 1;
+		}
 	</style>
+
 </head>
 <body>
 
-
-<div id="wysi-app"></div>
+<div id="wysiapp"></div>
+<input checked type="checkbox" id="toggleedit" class="fa fa-pencil" title="edit">
 
 <div class="page">
-
-	<label style="border: 1px solid #aaa"><input checked type="checkbox" id="toggleedit">edit mode</label> some non editable text ...
 	<h1>
 		<span class="text xs" contenteditable="true"><em>Wysi - a small and complete HTML Editor</em></span>
 	</h1> 
@@ -139,8 +168,8 @@
 
 <!-- <script src="/node_modules/react/dist/react.js"></script>
 <script src="/node_modules/react-dom/dist/react-dom.js"></script> -->
-<script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
-<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
+<script src="https://unpkg.com/react@15.3.2/dist/react.min.js"></script>
+<script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.min.js"></script>
 
 
 <!-- 1.  -->
@@ -157,7 +186,7 @@
 
 // let wysi = require('./src/App.js');
 
-let wapp = ReactDOM.render( React.createElement(wysi), document.getElementById('wysi-app') );
+let wapp = ReactDOM.render( React.createElement(wysi), wysiapp );
 
 toggleedit.addEventListener('change', e=>{
 	for (let el of document.querySelectorAll('[contenteditable]'))
