@@ -25,18 +25,33 @@
 <script src="../wysi/bundle.js"></script>
 <script src="bundle.js"></script>
 
-<!-- <script src="/node_modules/mini-requirejs/main.js"></script> -->
-<script src="https://rawgit.com/caub/cf82c451120373dc1568/raw/85aaf781f52fe3e28d1a18bfa73ccd6ffd2635a5/main.js"></script>
-
 <script>
 // let polyfills = require('../polyfills.js');
 // require.cache.react = {exports: React};
 
-let page = require('../server/test/pages/page5.js');
+window.import = function(url) {
+	const href = url.startsWith('http') ? url : new URL(location.origin+location.pathname+url).href;
+
+	if (href.endsWith('.json')) {
+		return fetch(abs).then(r=>r.json());
+	}
+	return fetch(href).then(r=>r.text())
+		.then(code=>{
+			const executableCode = new Function('module', 'exports', code + '\n\n//# sourceURL=' + href);
+			const MODULE = {
+				exports: {}
+			};
+			executableCode.call(MODULE.exports, MODULE, MODULE.exports);
+			return MODULE.exports;
+		});
+}
+
+
+window.import('../server/test/pages/page5.js').then(function(page) {
+	var _app = ReactDOM.render( React.createElement(editor, {page, wysi}), document.getElementById('cms-app') );
+});
 // let wysi = require('../wysi/src/App.js');
 // let editor = require('src/App.js');
-
-var _app = ReactDOM.render( React.createElement(editor, {page, wysi}), document.getElementById('cms-app') );
 
 </script>
 
